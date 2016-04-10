@@ -2,6 +2,7 @@
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75,
   window.innerWidth/window.innerHeight, 0.1, 1000 );
+var clock = new THREE.Clock();
 
 // Make a renderer, add it to the html
 var renderer = new THREE.WebGLRenderer();
@@ -20,6 +21,8 @@ light.position.set(0, 0, 5);
 scene.add(light);
 
 camera.position.z = 5;
+
+var controls = undefined;
 
 function setOrientationControls(e) {
   if (!e.alpha) {
@@ -42,6 +45,9 @@ var render = function () {
 
     cube.rotation.x += 0.1;
     cube.rotation.y += 0.1;
+
+    camera.updateProjectionMatrix();
+    if(controls) controls.update(clock.getDelta());
 
     renderer.render(scene, camera);
 };
