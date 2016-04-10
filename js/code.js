@@ -10,11 +10,31 @@ document.body.appendChild( renderer.domElement );
 
 // Make a cube
 var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
 var cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
 
+// Make a light
+var light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(0, 0, 5);
+scene.add(light);
+
 camera.position.z = 5;
+
+function setOrientationControls(e) {
+  if (!e.alpha) {
+    return;
+  }
+
+  controls = new THREE.DeviceOrientationControls(camera, true);
+  controls.connect();
+  controls.update();
+
+  element.addEventListener('click', fullscreen, false);
+
+  window.removeEventListener('deviceorientation', setOrientationControls, true);
+}
+window.addEventListener('deviceorientation', setOrientationControls, true);
 
 // Render
 var render = function () {
