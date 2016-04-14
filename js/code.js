@@ -10,17 +10,18 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 // Make a cube
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+var geometry = new THREE.PlaneGeometry( 100, 1000, 10, 10 );
 var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+var plane = new THREE.Mesh( geometry, material );
+//plane.position.z = -10;
+plane.position.y = -10;
+plane.rotation.x = -Math.PI/2.0;
+scene.add(plane);
 
 // Make a light
 var light = new THREE.PointLight(0xffffff, 1, 100);
-light.position.set(0, 0, 5);
+light.position.set(0, 0, 0);
 scene.add(light);
-
-camera.position.z = 5;
 
 var controls = undefined;
 
@@ -41,8 +42,8 @@ window.addEventListener('deviceorientation', setOrientationControls, true);
 var render = function () {
     requestAnimationFrame( render );
 
-    cube.rotation.x += 0.1;
-    cube.rotation.y += 0.1;
+//    cube.rotation.x += 0.1;
+//    cube.rotation.y += 0.1;
 
     camera.updateProjectionMatrix();
     if(controls) controls.update(clock.getDelta());
