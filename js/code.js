@@ -14,7 +14,7 @@ function setupThree() {
     
     // Make a renderer, add it to the html
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( 1000, 500 );
     document.body.appendChild( renderer.domElement );
     
     function setOrientationControls(e) {
