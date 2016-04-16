@@ -6,10 +6,6 @@ var renderer;
 var controls;
 
 function setupThree() {
-    // Setup scene, camera
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
     clock = new THREE.Clock();
     
     // Make a renderer, add it to the html
@@ -18,6 +14,11 @@ function setupThree() {
     var container = $('#container');
     var element = renderer.domElement;
     container.append( element );
+
+    // Setup scene, camera
+    var size = renderer.getSize();
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, size.width/size.height, 0.1, 1000);
     
     function setOrientationControls(e) {
       if (!e.alpha) {
@@ -33,6 +34,16 @@ function setupThree() {
     window.addEventListener('deviceorientation', setOrientationControls, true);
 }
 
+function newCube(x, y, z, w, h, d, color) {
+    var geometry = new THREE.BoxGeometry( w, h, d );
+    var material = new THREE.MeshBasicMaterial( { color: color } );
+    var cube = new THREE.Mesh( geometry, material );
+    cube.position.x = x;
+    cube.position.y = y;
+    cube.position.z = z;
+    return cube;
+}
+
 function render() {
     requestAnimationFrame( render );
 
@@ -46,6 +57,7 @@ function render() {
 
 function setup() {
     setupThree();
+
     render();
 }
 
