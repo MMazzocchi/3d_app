@@ -1,4 +1,7 @@
 body {
-  margin: 0px;
-  padding: 0px;
+}
+
+#container {
+  width: 500px;
+  margin: 0 auto;
 }
